@@ -6,12 +6,12 @@ import { useEffect, useState } from 'react';
 const PhotoStream = () => {
   // Base set of photos
   const basePhotos = [
-    '/photo1.jpg',
-    '/photo2.jpg',
-    '/photo3.jpg',
-    '/photo4.jpg',
-    '/photo5.jpg',
-    '/photo6.jpg',
+    '/stock-ap.jpg',
+    '/stock-ap.jpg',
+    '/stock-ap.jpg',
+    '/stock-ap.jpg',
+    '/stock-ap.jpg',
+    '/stock-ap.jpg',
   ];
   
   // Create 4 sets of photos to ensure smooth infinite scroll
