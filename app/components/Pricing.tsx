@@ -1,6 +1,21 @@
 import React from 'react';
 
-const PricingCard = ({ 
+interface PricingCardProps {
+  title: string;
+  price: string;
+  description: string;
+  features: string[];
+  isPrimary?: boolean;
+}
+
+interface PricingPlan {
+  title: string;
+  price: string;
+  description: string;
+  features: string[];
+}
+
+const PricingCard: React.FC<PricingCardProps> = ({ 
   title, 
   price, 
   description, 
@@ -68,8 +83,8 @@ const PricingCard = ({
   );
 };
 
-const Pricing = () => {
-  const pricingData = [
+const Pricing: React.FC = () => {
+  const pricingData: PricingPlan[] = [
     {
       title: 'Lite',
       price: '1,495',
