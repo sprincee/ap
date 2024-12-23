@@ -6,18 +6,18 @@ const About = () => {
   const features = [
     {
       icon: <Camera className="w-6 h-6 mb-3" />,
-      title: "Smart Capture",
-      description: "Advanced algorithms to enhance your photography process in real-time"
+      title: "Feature Title",
+      description: "[Feature description will go here - explain the benefit in 1-2 lines]"
     },
     {
       icon: <Mic className="w-6 h-6 mb-3" />,
-      title: "AI Enhancement",
-      description: "Intelligent touch-up tools that preserve natural beauty"
+      title: "Feature Title",
+      description: "[Feature description will go here - explain the benefit in 1-2 lines]"
     },
     {
       icon: <Sliders className="w-6 h-6 mb-3" />,
-      title: "Custom Presets",
-      description: "Create and save your signature editing styles for consistent results"
+      title: "Feature Title",
+      description: "[Feature description will go here - explain the benefit in 1-2 lines]"
     },
     {
       icon: <Bell className="w-6 h-6 mb-3" />,
@@ -67,7 +67,7 @@ const About = () => {
           {features.map((feature, index) => (
             <div 
               key={index}
-              className="p-6 rounded-lg bg-gradient-to-br from-purple-900/30 to-purple-800/10
+              className="p-6 rounded-lg bg-#0a0a0f from-purple-900/30 to-purple-800/10
                          border border-purple-500/20 hover:border-purple-500/40 
                          transition-all duration-300 transform hover:-translate-y-1"
             >

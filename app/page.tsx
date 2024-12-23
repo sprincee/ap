@@ -1,11 +1,11 @@
 // app/page.tsx
-import GridOverlay from '@/app/components/GridOverlay';
+import Footer from './shared/components/Footer';
 import Navbar from '@/app/shared/components/Navbar';
 import Hero from '@/app/components/Hero';
 import ViewfinderOverlay from './components/ViewFinderOverlay';
 import TimeClock from '@/app/components/TimeClock';
-import LogoBrackets from './components/LogoBrackets';
-import About from '@/app/components/About';
+import Pricing from './components/Pricing';
+import About2 from '@/app/components/About-Test';
 
 // app/page.tsx
 export default function Home() {
@@ -42,7 +42,11 @@ export default function Home() {
       </div>
 
       {/* About section */}
-      <About />
+      <About2 />
+
+      <Pricing />
+
+      <Footer />
     </main>
   );
 }
