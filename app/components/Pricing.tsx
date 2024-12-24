@@ -1,4 +1,5 @@
-import React from 'react';
+'use client';
+import React, { useEffect, useRef } from 'react';
 
 interface PricingCardProps {
   title: string;
@@ -6,6 +7,7 @@ interface PricingCardProps {
   description: string;
   features: string[];
   isPrimary?: boolean;
+  delay?: number;
 }
 
 interface PricingPlan {
@@ -20,10 +22,17 @@ const PricingCard: React.FC<PricingCardProps> = ({
   price, 
   description, 
   features, 
-  isPrimary = false 
+  isPrimary = false,
+  delay = 0
 }) => {
   return (
-    <div className="relative flex flex-col p-12 bg-[#0a0a0f] rounded-lg border border-gray-800 h-[800px] overflow-hidden">
+    <div 
+      className="relative flex flex-col p-12 bg-[#0a0a0f] rounded-lg border border-gray-800 h-[800px] overflow-hidden opacity-0 translate-y-4 transition-all duration-700 ease-out"
+      style={{ 
+        transitionDelay: `${delay}ms`,
+      }}
+      data-animate="true"
+    >
       {/* Gradient background for primary card */}
       {isPrimary && (
         <div className="absolute inset-0">
@@ -84,49 +93,88 @@ const PricingCard: React.FC<PricingCardProps> = ({
 };
 
 const Pricing: React.FC = () => {
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const observerOptions = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.3 // Trigger when 20% of the section is visible
+    };
+
+    const handleIntersection = (entries: IntersectionObserverEntry[]) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          // Add animation class to title
+          const title = entry.target.querySelector('[data-animate="title"]');
+          if (title) {
+            title.classList.add('opacity-100', 'translate-y-0');
+          }
+
+          // Add animation class to all cards
+          const cards = entry.target.querySelectorAll('[data-animate="true"]');
+          cards.forEach(card => {
+            card.classList.add('opacity-100', 'translate-y-0');
+          });
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(handleIntersection, observerOptions);
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
   const pricingData: PricingPlan[] = [
     {
-      title: 'Lite',
-      price: '1,495',
-      description: 'Quickly receive a high-quality brand logo, representing your business vision.',
+      title: 'Basic',
+      price: '0',
+      description: 'Start your photography journey with powerful editing suggestions.',
       features: [
-        'Primary logo',
-        'Brand colours',
-        '72hr delivery',
-        'Max 1 revision',
-        'Figma files'
+        'Tutorial',
+        '100 photos per month',
+        'Core Editing Suggestions',
+        '1 Custom Preset',
+        'Before/After Comparisons'
       ]
     },
     {
       title: 'Standard',
-      price: '2,225',
-      description: 'Full scale brand identity promoting and connecting with your target audience.',
+      price: '5',
+      description: 'Revolutionize your photos with our advanced editing tools.',
       features: [
-        'Primary and secondary logos',
-        'Full brand guidebook',
-        '2 weeks delivery',
-        'Max 3 revisions',
-        'Figma files'
+        'Basic Features',
+        '200 photos per month',
+        'Advanced Editing Suggestions',
+        '3 Custom Presets',
+        '"Why This Works" Explainations'
       ]
     },
     {
-      title: 'Monthly',
-      price: '2,495',
-      description: 'Monthly design support, perfect for companies who require ongoing design work.',
+      title: 'Premium',
+      price: '10',
+      description: 'Unleash your full creative potential.',
       features: [
-        'Unlimited banners',
-        'Unlimited revisions',
-        'Updates every 24 hours',
-        'Max 1 revision',
-        'Pause or cancel anytime'
+        'Standard Features',
+        '1000 photos per month',
+        'Unlimited Custom Presets',
+        'Style Match',
+        '. . . and more!'
       ]
     }
   ];
 
   return (
-    <section className="py-8 pb-4 px-4">
+    <section id="pricing" className="py-8 pb-4 px-4" ref={sectionRef}>
       <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-24">
+        <div 
+          className="text-center mb-24 opacity-0 translate-y-4 transition-all duration-700 ease-out"
+          data-animate="title"
+        >
           <h2 className="text-6xl font-bold text-white mb-4">Our services.</h2>
           <p className="text-gray-400 text-lg">
             Fixed-cost plans to avoid negotiations and start creating.
@@ -138,6 +186,7 @@ const Pricing: React.FC = () => {
               key={index}
               {...plan}
               isPrimary={index === 1}
+              delay={index * 200}
             />
           ))}
         </div>

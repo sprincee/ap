@@ -37,7 +37,7 @@ const Footer = () => {
 
           {/* CTA Button */}
           <Link 
-            href="/contact" 
+            href="https://www.linkedin.com/in/mahad-skhan/" 
             className="bg-[#8B5CF6] text-white px-6 py-3 rounded-lg hover:bg-[#7C3AED]/90 transition-colors"
           >
             Contact me!
